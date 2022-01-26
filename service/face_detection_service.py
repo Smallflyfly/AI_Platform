@@ -56,11 +56,10 @@ def init_images(contents):
 def face_detection_run(model, contents):
     im_cv = init_images(contents)
     detection_results = detection(im_cv, model)
-    # print(detection_results)
-    im_pi = Image.fromarray(cv2.cvtColor(im_cv, cv2.COLOR_BGR2RGB))
-    result = {}
-    result['data'] = detection_results
-    result['success'] = True
-    result['code'] = 200
+    print(detection_results)
+    for det in detection_results:
+        xmin, ymin, xmax, ymax, prob = det
+        cv2.rectangle(im_cv, (int(xmin), int(ymin)), (int(xmax), int(ymax)), (0, 0, 255), 2)
+    # im_pi = Image.fromarray(cv2.cvtColor(im_cv, cv2.COLOR_BGR2RGB))
 
-    return im_pi
+    return im_cv
